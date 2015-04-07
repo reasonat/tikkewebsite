@@ -1,0 +1,335 @@
+@mixin res($media) {
+  @if $media == small {
+    @media (max-width: 480px) { @content; }
+  }
+  @else if $media == medium {
+    @media (min-width: 481px) and (max-width: 767px) { @content; }
+  }
+  @if $media == m-large {
+    @media  (min-width: 768px) and (max-width: 1289px){ @content; }
+  }
+  @if $media == small-medium {
+    @media (max-width: 767px) { @content; }
+  }
+  @if $media == menu {
+    @media (max-width: 925px) { @content; }
+  }
+}
+$red: #fe4e5b;
+$gray: #f5f5f5;
+
+/********  front  **********/
+
+.front .field-name-body{
+    .text-circle{
+      p{
+        float: right;
+      }
+      .circle{
+        float: right;
+      }
+    }
+     .big{
+      @include res(small-medium){
+        padding: 0 0 0 3%;
+      }
+    }
+    .small{
+      @include res(small-medium){
+        padding: 0 0 0 3%;
+      }
+    }
+    .link{
+      @include res(small-medium){
+        padding: 0 0 0 3%;
+      }
+    }
+}
+
+/******* main menu  ********/
+
+#main-menu{
+  li{
+    padding: 0 21px 0 27px!important;
+    background: url("../images/menu-bg.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+    @include res(menu){
+    	padding: 0!important;
+    	background: none;
+    }
+  }
+  li.first{
+    padding-right: 0!important ;
+    margin-right: 0;
+    padding-left: 20px!important;
+  }
+} 
+
+#navigation{
+  padding: 0 ;
+  #main-menu{
+    padding-right: 80px;
+    width:100%;
+    @include res(menu){
+      padding-right: 0;
+    }
+  }
+}
+
+/***********responsive menu  ****************/
+
+.mobile-menu{
+  padding: 8px 0 5px 5px;
+}
+
+/************ footer  ************/
+
+.not-front .wrapper-bottom{
+  #block-block-2, #block-block-4, #block-webform-client-block-4, #block-block-3{ 
+    float:  right;  
+  }
+  #block-block-4{
+    .numbers{
+        float:  right;
+        border-left:  1px solid $red;
+        padding-left:   15px;
+        margin-left:  15px;
+        margin-right: 0;
+        padding-right: 0;
+        border-right: none;
+    }
+  }
+  #block-block-2{
+    width:  33%;
+    @include res(m-large){
+        margin-left: 1%;
+        margin-right: 0;
+    }
+    .numbers{
+        float:  right;
+        border-left:  1px solid $red;
+        padding-left:   15px;
+        margin-left:  15px;
+        margin-right: 0;
+        padding-right: 0;
+        border-right: none;
+    }
+  }
+  #block-webform-client-block-4{
+    .form-item{
+      float: right;
+    }
+  }
+  #block-webform-client-block-4{
+      input.email{
+        float:  right; 
+      }
+      input.form-submit{
+        background: url("../images/input-arrow.png") no-repeat center center $red; 
+        margin-left: 4px;
+        margin-right: 0;
+        margin-top: -41px;
+        float: left;
+      }
+  }
+  #block-block-3{
+      float: left;
+      h2{
+        @include res(small-medium){
+          margin-left: 10px;
+          margin-right: 0;
+        }
+      }
+      a{
+        @include res(small-medium){
+          float: right;
+        }
+      }
+      img{
+        float: right;
+        margin-left: 5px;
+        margin-right: 0;
+      }
+    }
+}
+
+#block-menu-menu-footer{
+	li{ 
+      border-right:  1px solid #999;
+      border-left: none!important;
+       padding: 0.2em 0.5em 0 0!important;
+    }
+}
+/*******  about page *************/
+
+.page-node-5{
+  #page-title{
+    @include res(small-medium){
+      text-align: right;
+    }
+  }
+  .field-name-field-second-title{
+    @include res(small-medium){
+      text-align: right;
+    }
+  }
+}
+
+.wrapper-number{
+  #numbers{
+    .box{
+        float: right;
+    }
+    .box1, .box3, .box5, .box7{
+          @include res(medium){
+              border-right:  none!important ;
+              border-left: 1px solid #30837f!important;
+          }
+    }
+    .box3{
+      border-left: 1px solid #30837f;
+      border-right: none;
+    }
+    .box7{
+        border-left: 1px solid #30837f;
+        border-right: none;
+    }
+  }
+}
+
+/**********  services page **********/
+
+#services{
+  .right-side{
+    float: right;
+   }
+  .left-side{
+    padding: 0 32px 0 10px;
+    float:  right; 
+    .bottom{
+      img{
+        float: right;
+      }
+      .text{
+        padding-right: 36px;
+        padding-left: 0;
+      }
+    }
+  }
+}
+
+/**********  contact **********/
+
+.webform-component-checkboxes label {
+  padding: 0 0 0 80px;
+}
+
+.webform-component-checkboxes svg {
+  right: 20px;
+  left: auto;
+}
+
+#webform-client-form-6{
+ #edit-submitted-project{
+    label{
+      padding-right: 35px;
+      padding-left: 0;
+    }
+  }
+  .webform-component-checkboxes{
+    label{
+      float: right;
+    }
+    .form-checkboxes{
+      padding-right: 119px;
+      padding-left: 0;
+    }
+    input{
+      float: right;
+      right: 20px;
+      left:auto;
+    }
+  }
+      .MultiFile-title{
+      float: left;
+      margin-right: 15px;
+    }
+        #edit-submitted-file-remove-button{
+      float: left!important;
+     }
+}
+
+.page-node-6 .field-name-body{
+@include res(small-medium){
+  text-align: right;
+}
+}
+/******  fixed block ********/
+
+#fixed-block{
+  left: 20px;
+  right: auto;
+  @include res(small-medium){
+    left: 10px;
+    right: auto;
+  }
+  .link1 .text{
+    font-size: 1em;
+    line-height: 0.8em;
+  }
+}
+
+/*******  works  **********/
+
+#block-views-sites-block{
+	.image{
+		left:0;
+		right: auto;
+	}
+}
+
+#top-site{
+  @include res(small){
+    height: 51px!important;
+  }
+  .link{
+    a{
+      float: right;
+      @include res(small){
+        top: 0;
+      }
+    }
+  }
+  .site-name-next{
+    float: left;
+    text-align: right;
+  }
+  .site-name-prev{
+    float: right;
+    text-align: left;
+  }
+  img{
+    padding-top: 0!important;
+  }
+  .site-name{
+    padding: 13px 10px!important;
+    @include res(small){
+      padding: 16px 10px!important;
+    }
+  }
+}
+
+#block-views-logos-block .views-row{
+  float: right;
+}
+/*********  Commerce  ***********/
+
+.page-node-12, .page-node-78 {
+  .main-area{
+    .image{
+      float: right;
+    }
+    .text{
+      float: right;
+    }
+  }
+}

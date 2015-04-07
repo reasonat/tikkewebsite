@@ -1,0 +1,737 @@
+/**
+ * @file
+ * RTL companion for the styles.scss file.
+ */
+/* Import Sass mixins, variables, Compass modules, etc. */
+/* HTML element (SMACSS base) rules */
+/**
+ * @file
+ * Normalize-rtl.scss is the RTL language extension of normalize.scss
+ */
+/**
+ * Lists
+ */
+/* line 9, ../sass/_normalize-rtl.scss */
+dd {
+  margin: 0 30px 0 0;
+}
+
+/* Address paddings set differently in IE 6/7. */
+/* line 16, ../sass/_normalize-rtl.scss */
+menu,
+ol,
+ul {
+  padding: 0 30px 0 0;
+}
+
+/* Layout rules */
+/**
+ * @file
+ * RTL companion for the layout-responsive.css file.
+ */
+/**
+ * @file
+ * Positioning for a responsive layout.
+ *
+ * Define CSS classes to create a fluid grid layout with optional sidebars
+ * depending on whether blocks are placed in the left or right sidebars.
+ *
+ * This layout uses the Zen Grids plugin for Compass: http://zengrids.com
+ */
+/**
+ * Use 3 grid columns for smaller screens.
+ */
+@media all and (min-width: 480px) and (max-width: 959px) {
+  /**
+   * The layout when there is only one sidebar, the left one.
+   */
+  /* line 86, ../sass/layouts/_responsive.scss */
+  .sidebar-first {
+    /* Span 2 columns, starting in 2nd column from left. */
+    /* Span 1 column, starting in 1st column from left. */
+  }
+  /* line 88, ../sass/layouts/_responsive.scss */
+  .sidebar-first #content {
+    float: right;
+    width: 66.66667%;
+    margin-right: 33.33333%;
+    margin-left: -100%;
+  }
+  /* line 93, ../sass/layouts/_responsive.scss */
+  .sidebar-first .region-sidebar-first {
+    float: right;
+    width: 33.33333%;
+    margin-right: 0%;
+    margin-left: -33.33333%;
+  }
+
+  /**
+   * The layout when there is only one sidebar, the right one.
+   */
+  /* line 101, ../sass/layouts/_responsive.scss */
+  .sidebar-second {
+    /* Span 2 columns, starting in 1st column from left. */
+    /* Span 1 column, starting in 3rd column from left. */
+  }
+  /* line 103, ../sass/layouts/_responsive.scss */
+  .sidebar-second #content {
+    float: right;
+    width: 66.66667%;
+    margin-right: 0%;
+    margin-left: -66.66667%;
+  }
+  /* line 108, ../sass/layouts/_responsive.scss */
+  .sidebar-second .region-sidebar-second {
+    float: right;
+    width: 33.33333%;
+    margin-right: 66.66667%;
+    margin-left: -100%;
+  }
+
+  /**
+   * The layout when there are two sidebars.
+   */
+  /* line 116, ../sass/layouts/_responsive.scss */
+  .two-sidebars {
+    /* Span 2 columns, starting in 2nd column from left. */
+    /* Span 1 column, starting in 1st column from left. */
+    /* Start a new row and span all 3 columns. */
+  }
+  /* line 118, ../sass/layouts/_responsive.scss */
+  .two-sidebars #content {
+    float: right;
+    width: 66.66667%;
+    margin-right: 33.33333%;
+    margin-left: -100%;
+  }
+  /* line 123, ../sass/layouts/_responsive.scss */
+  .two-sidebars .region-sidebar-first {
+    float: right;
+    width: 33.33333%;
+    margin-right: 0%;
+    margin-left: -33.33333%;
+  }
+  /* line 128, ../sass/layouts/_responsive.scss */
+  .two-sidebars .region-sidebar-second {
+    float: right;
+    width: 100%;
+    margin-right: 0%;
+    margin-left: -100%;
+    padding-left: 0;
+    padding-right: 0;
+    clear: right;
+    /* Apply the shared properties of grid items in a single, efficient ruleset. */
+    /* Span 1 column, starting in the 1st column from left. */
+    /* Span 1 column, starting in the 2nd column from left. */
+    /* Span 1 column, starting in the 3rd column from left. */
+  }
+  /* line 134, ../sass/layouts/_responsive.scss */
+  .two-sidebars .region-sidebar-second .block {
+    padding-left: 10px;
+    padding-right: 10px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    word-wrap: break-word;
+  }
+  /* line 138, ../sass/layouts/_responsive.scss */
+  .two-sidebars .region-sidebar-second .block:nth-child(3n+1) {
+    float: right;
+    width: 33.33333%;
+    margin-right: 0%;
+    margin-left: -33.33333%;
+    clear: right;
+  }
+  /* line 143, ../sass/layouts/_responsive.scss */
+  .two-sidebars .region-sidebar-second .block:nth-child(3n+2) {
+    float: right;
+    width: 33.33333%;
+    margin-right: 33.33333%;
+    margin-left: -66.66667%;
+  }
+  /* line 147, ../sass/layouts/_responsive.scss */
+  .two-sidebars .region-sidebar-second .block:nth-child(3n) {
+    float: right;
+    width: 33.33333%;
+    margin-right: 66.66667%;
+    margin-left: -100%;
+  }
+}
+/**
+ * Use 5 grid columns for larger screens.
+ */
+@media all and (min-width: 960px) {
+  /**
+   * The layout when there is only one sidebar, the left one.
+   */
+  /* line 164, ../sass/layouts/_responsive.scss */
+  .sidebar-first {
+    /* Span 4 columns, starting in 2nd column from left. */
+    /* Span 1 column, starting in 1st column from left. */
+  }
+  /* line 166, ../sass/layouts/_responsive.scss */
+  .sidebar-first #content {
+    float: right;
+    width: 80%;
+    margin-right: 20%;
+    margin-left: -100%;
+  }
+  /* line 171, ../sass/layouts/_responsive.scss */
+  .sidebar-first .region-sidebar-first {
+    float: right;
+    width: 20%;
+    margin-right: 0%;
+    margin-left: -20%;
+  }
+
+  /**
+   * The layout when there is only one sidebar, the right one.
+   */
+  /* line 179, ../sass/layouts/_responsive.scss */
+  .sidebar-second {
+    /* Span 4 columns, starting in 1st column from left. */
+    /* Span 1 column, starting in 5th column from left. */
+  }
+  /* line 181, ../sass/layouts/_responsive.scss */
+  .sidebar-second #content {
+    float: right;
+    width: 70%;
+    margin-right: 0%;
+    margin-left: -70%;
+  }
+  /* line 186, ../sass/layouts/_responsive.scss */
+  .sidebar-second .region-sidebar-second {
+    float: right;
+    width: 30%;
+    margin-right: 80%;
+    margin-left: -110%;
+  }
+
+  /**
+   * The layout when there are two sidebars.
+   */
+  /* line 194, ../sass/layouts/_responsive.scss */
+  .two-sidebars {
+    /* Span 3 columns, starting in 2nd column from left. */
+    /* Span 1 column, starting in 1st column from left. */
+    /* Span 1 column, starting in 5th column from left. */
+  }
+  /* line 196, ../sass/layouts/_responsive.scss */
+  .two-sidebars #content {
+    float: right;
+    width: 60%;
+    margin-right: 20%;
+    margin-left: -80%;
+  }
+  /* line 201, ../sass/layouts/_responsive.scss */
+  .two-sidebars .region-sidebar-first {
+    float: right;
+    width: 20%;
+    margin-right: 0%;
+    margin-left: -20%;
+  }
+  /* line 206, ../sass/layouts/_responsive.scss */
+  .two-sidebars .region-sidebar-second {
+    float: right;
+    width: 20%;
+    margin-right: 80%;
+    margin-left: -100%;
+  }
+}
+/* Component (SMACSS module) rules */
+/**
+ * @file
+ * RTL companion for the modular-styles.css file.
+ */
+/**
+ * Branding header.
+ */
+/* Wrapping link for logo. */
+/* line 11, ../sass/components/_misc-rtl.scss */
+.header__logo {
+  float: right;
+}
+
+/* The secondary menu (login, etc.) */
+/* line 16, ../sass/components/_misc-rtl.scss */
+.header__secondary-menu {
+  float: left;
+}
+
+/**
+ * Navigation bar.
+ */
+/* Main menu and secondary menu links and menu block links. */
+/* line 27, ../sass/components/_misc-rtl.scss */
+#navigation .links,
+#navigation .menu {
+  text-align: right;
+}
+/* line 30, ../sass/components/_misc-rtl.scss */
+#navigation .links li,
+#navigation .menu li {
+  /* A simple method to get navigation links to appear in one line. */
+  float: right;
+  padding: 0 0 0 10px;
+}
+
+/**
+ * Messages.
+ */
+/* line 41, ../sass/components/_misc-rtl.scss */
+.messages, .messages--status, .messages--warning, .messages--error {
+  padding: 10px 50px 10px 10px;
+  background-position: 99% 8px;
+}
+
+/**
+ * Tabs.
+ */
+/* line 58, ../sass/components/_misc-rtl.scss */
+.tabs-primary__tab, .tabs-primary__tab.is-active, .tabs-secondary__tab,
+.tabs-secondary__tab.is-active {
+  float: right;
+}
+
+/**
+ * Inline styles.
+ */
+/* List of links */
+/* line 77, ../sass/components/_misc-rtl.scss */
+.inline li {
+  /* Bug in Safari causes display: inline to fail. */
+  display: inline-block;
+  padding: 0 0 0 1em;
+}
+
+/* The inline field label used by the Fences.module */
+/* line 84, ../sass/components/_misc-rtl.scss */
+span.field-label {
+  padding: 0 0 0 1em;
+}
+
+/**
+ * "More" links.
+ */
+/* line 91, ../sass/components/_misc-rtl.scss */
+.more-link {
+  text-align: left;
+}
+
+/* line 94, ../sass/components/_misc-rtl.scss */
+.more-help-link {
+  text-align: left;
+}
+
+/* line 97, ../sass/components/_misc-rtl.scss */
+.more-help-link a {
+  background-position: 100% 50%;
+  padding: 1px 20px 1px 0;
+}
+
+/**
+ * Menus.
+ */
+/* line 105, ../sass/components/_misc-rtl.scss */
+.menu__item.is-collapsed {
+  list-style-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHAQMAAAD+nMWQAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAABNJREFUCB1j4GASYFJgcmD+A4IADUIDfIUMT4wAAAAASUVORK5CYII=');
+}
+
+/**
+ * Comments.
+ */
+/* Nested comments are indented. */
+/* line 117, ../sass/components/_misc-rtl.scss */
+.indented {
+  margin-left: 0;
+  margin-right: 30px;
+}
+
+/**
+ * Forms.
+ */
+/* Drupal's default login form block */
+/* line 127, ../sass/components/_misc-rtl.scss */
+#user-login-form {
+  text-align: right;
+}
+
+/* line 132, ../sass/components/_misc-rtl.scss */
+html.js #user-login-form li.openid-link,
+#user-login-form li.openid-link {
+  /* Un-do some of the padding on the ul list. */
+  margin-left: 0;
+  margin-right: -20px;
+}
+
+/*
+ * Drupal admin tables.
+ */
+/* line 142, ../sass/components/_misc-rtl.scss */
+form th {
+  text-align: right;
+  padding-left: 1em;
+  padding-right: 0;
+}
+
+/**
+ * Collapsible fieldsets.
+ *
+ * @see collapse.js
+ */
+/* line 155, ../sass/components/_misc-rtl.scss */
+html.js .collapsible .fieldset-legend {
+  background-position: 98% 75%;
+  padding-left: 0;
+  padding-right: 15px;
+}
+/* line 160, ../sass/components/_misc-rtl.scss */
+html.js .collapsed .fieldset-legend {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHAQMAAAD+nMWQAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAABNJREFUCB1j4GASYFJgcmD+A4IADUIDfIUMT4wAAAAASUVORK5CYII=');
+  background-position: 98% 50%;
+}
+
+/********  front  **********/
+/* line 25, ../sass/components/_tikke-rtl.scss */
+.front .field-name-body .text-circle p {
+  float: right;
+}
+/* line 28, ../sass/components/_tikke-rtl.scss */
+.front .field-name-body .text-circle .circle {
+  float: right;
+}
+@media (max-width: 767px) {
+  /* line 32, ../sass/components/_tikke-rtl.scss */
+  .front .field-name-body .big {
+    padding: 0 0 0 3%;
+  }
+}
+@media (max-width: 767px) {
+  /* line 37, ../sass/components/_tikke-rtl.scss */
+  .front .field-name-body .small {
+    padding: 0 0 0 3%;
+  }
+}
+@media (max-width: 767px) {
+  /* line 42, ../sass/components/_tikke-rtl.scss */
+  .front .field-name-body .link {
+    padding: 0 0 0 3%;
+  }
+}
+
+/******* main menu  ********/
+/* line 52, ../sass/components/_tikke-rtl.scss */
+#main-menu li {
+  padding: 0 21px 0 27px !important;
+  background: url("../images/menu-bg.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+}
+@media (max-width: 925px) {
+  /* line 52, ../sass/components/_tikke-rtl.scss */
+  #main-menu li {
+    padding: 0 !important;
+    background: none;
+  }
+}
+/* line 60, ../sass/components/_tikke-rtl.scss */
+#main-menu li.first {
+  padding-right: 0 !important;
+  margin-right: 0;
+  padding-left: 20px !important;
+}
+
+/* line 67, ../sass/components/_tikke-rtl.scss */
+#navigation {
+  padding: 0;
+}
+/* line 69, ../sass/components/_tikke-rtl.scss */
+#navigation #main-menu {
+  padding-right: 80px;
+  width: 100%;
+}
+@media (max-width: 925px) {
+  /* line 69, ../sass/components/_tikke-rtl.scss */
+  #navigation #main-menu {
+    padding-right: 0;
+  }
+}
+
+/***********responsive menu  ****************/
+/* line 80, ../sass/components/_tikke-rtl.scss */
+.mobile-menu {
+  padding: 8px 0 5px 5px;
+}
+
+/************ footer  ************/
+/* line 87, ../sass/components/_tikke-rtl.scss */
+.not-front .wrapper-bottom #block-block-2, .not-front .wrapper-bottom #block-block-4, .not-front .wrapper-bottom #block-webform-client-block-4, .not-front .wrapper-bottom #block-block-3 {
+  float: right;
+}
+/* line 91, ../sass/components/_tikke-rtl.scss */
+.not-front .wrapper-bottom #block-block-4 .numbers {
+  float: right;
+  border-left: 1px solid #fe4e5b;
+  padding-left: 15px;
+  margin-left: 15px;
+  margin-right: 0;
+  padding-right: 0;
+  border-right: none;
+}
+/* line 101, ../sass/components/_tikke-rtl.scss */
+.not-front .wrapper-bottom #block-block-2 {
+  width: 33%;
+}
+@media (min-width: 768px) and (max-width: 1289px) {
+  /* line 101, ../sass/components/_tikke-rtl.scss */
+  .not-front .wrapper-bottom #block-block-2 {
+    margin-left: 1%;
+    margin-right: 0;
+  }
+}
+/* line 107, ../sass/components/_tikke-rtl.scss */
+.not-front .wrapper-bottom #block-block-2 .numbers {
+  float: right;
+  border-left: 1px solid #fe4e5b;
+  padding-left: 15px;
+  margin-left: 15px;
+  margin-right: 0;
+  padding-right: 0;
+  border-right: none;
+}
+/* line 118, ../sass/components/_tikke-rtl.scss */
+.not-front .wrapper-bottom #block-webform-client-block-4 .form-item {
+  float: right;
+}
+/* line 123, ../sass/components/_tikke-rtl.scss */
+.not-front .wrapper-bottom #block-webform-client-block-4 input.email {
+  float: right;
+}
+/* line 126, ../sass/components/_tikke-rtl.scss */
+.not-front .wrapper-bottom #block-webform-client-block-4 input.form-submit {
+  background: url("../images/input-arrow.png") no-repeat center center #fe4e5b;
+  margin-left: 4px;
+  margin-right: 0;
+  margin-top: -41px;
+  float: left;
+}
+/* line 134, ../sass/components/_tikke-rtl.scss */
+.not-front .wrapper-bottom #block-block-3 {
+  float: left;
+}
+@media (max-width: 767px) {
+  /* line 136, ../sass/components/_tikke-rtl.scss */
+  .not-front .wrapper-bottom #block-block-3 h2 {
+    margin-left: 10px;
+    margin-right: 0;
+  }
+}
+@media (max-width: 767px) {
+  /* line 142, ../sass/components/_tikke-rtl.scss */
+  .not-front .wrapper-bottom #block-block-3 a {
+    float: right;
+  }
+}
+/* line 147, ../sass/components/_tikke-rtl.scss */
+.not-front .wrapper-bottom #block-block-3 img {
+  float: right;
+  margin-left: 5px;
+  margin-right: 0;
+}
+
+/* line 156, ../sass/components/_tikke-rtl.scss */
+#block-menu-menu-footer li {
+  border-right: 1px solid #999;
+  border-left: none !important;
+  padding: 0.2em 0.5em 0 0 !important;
+}
+
+/*******  about page *************/
+@media (max-width: 767px) {
+  /* line 165, ../sass/components/_tikke-rtl.scss */
+  .page-node-5 #page-title {
+    text-align: right;
+  }
+}
+@media (max-width: 767px) {
+  /* line 170, ../sass/components/_tikke-rtl.scss */
+  .page-node-5 .field-name-field-second-title {
+    text-align: right;
+  }
+}
+
+/* line 179, ../sass/components/_tikke-rtl.scss */
+.wrapper-number #numbers .box {
+  float: right;
+}
+@media (min-width: 481px) and (max-width: 767px) {
+  /* line 182, ../sass/components/_tikke-rtl.scss */
+  .wrapper-number #numbers .box1, .wrapper-number #numbers .box3, .wrapper-number #numbers .box5, .wrapper-number #numbers .box7 {
+    border-right: none !important;
+    border-left: 1px solid #30837f !important;
+  }
+}
+/* line 188, ../sass/components/_tikke-rtl.scss */
+.wrapper-number #numbers .box3 {
+  border-left: 1px solid #30837f;
+  border-right: none;
+}
+/* line 192, ../sass/components/_tikke-rtl.scss */
+.wrapper-number #numbers .box7 {
+  border-left: 1px solid #30837f;
+  border-right: none;
+}
+
+/**********  services page **********/
+/* line 202, ../sass/components/_tikke-rtl.scss */
+#services .right-side {
+  float: right;
+}
+/* line 205, ../sass/components/_tikke-rtl.scss */
+#services .left-side {
+  padding: 0 32px 0 10px;
+  float: right;
+}
+/* line 209, ../sass/components/_tikke-rtl.scss */
+#services .left-side .bottom img {
+  float: right;
+}
+/* line 212, ../sass/components/_tikke-rtl.scss */
+#services .left-side .bottom .text {
+  padding-right: 36px;
+  padding-left: 0;
+}
+
+/**********  contact **********/
+/* line 222, ../sass/components/_tikke-rtl.scss */
+.webform-component-checkboxes label {
+  padding: 0 0 0 80px;
+}
+
+/* line 226, ../sass/components/_tikke-rtl.scss */
+.webform-component-checkboxes svg {
+  right: 20px;
+  left: auto;
+}
+
+/* line 233, ../sass/components/_tikke-rtl.scss */
+#webform-client-form-6 #edit-submitted-project label {
+  padding-right: 35px;
+  padding-left: 0;
+}
+/* line 239, ../sass/components/_tikke-rtl.scss */
+#webform-client-form-6 .webform-component-checkboxes label {
+  float: right;
+}
+/* line 242, ../sass/components/_tikke-rtl.scss */
+#webform-client-form-6 .webform-component-checkboxes .form-checkboxes {
+  padding-right: 119px;
+  padding-left: 0;
+}
+/* line 246, ../sass/components/_tikke-rtl.scss */
+#webform-client-form-6 .webform-component-checkboxes input {
+  float: right;
+  right: 20px;
+  left: auto;
+}
+/* line 252, ../sass/components/_tikke-rtl.scss */
+#webform-client-form-6 .MultiFile-title {
+  float: left;
+  margin-right: 15px;
+}
+/* line 256, ../sass/components/_tikke-rtl.scss */
+#webform-client-form-6 #edit-submitted-file-remove-button {
+  float: left !important;
+}
+
+@media (max-width: 767px) {
+  /* line 261, ../sass/components/_tikke-rtl.scss */
+  .page-node-6 .field-name-body {
+    text-align: right;
+  }
+}
+
+/******  fixed block ********/
+/* line 268, ../sass/components/_tikke-rtl.scss */
+#fixed-block {
+  left: 20px;
+  right: auto;
+}
+@media (max-width: 767px) {
+  /* line 268, ../sass/components/_tikke-rtl.scss */
+  #fixed-block {
+    left: 10px;
+    right: auto;
+  }
+}
+/* line 275, ../sass/components/_tikke-rtl.scss */
+#fixed-block .link1 .text {
+  font-size: 1em;
+  line-height: 0.8em;
+}
+
+/*******  works  **********/
+/* line 284, ../sass/components/_tikke-rtl.scss */
+#block-views-sites-block .image {
+  left: 0;
+  right: auto;
+}
+
+@media (max-width: 480px) {
+  /* line 290, ../sass/components/_tikke-rtl.scss */
+  #top-site {
+    height: 51px !important;
+  }
+}
+/* line 295, ../sass/components/_tikke-rtl.scss */
+#top-site .link a {
+  float: right;
+}
+@media (max-width: 480px) {
+  /* line 295, ../sass/components/_tikke-rtl.scss */
+  #top-site .link a {
+    top: 0;
+  }
+}
+/* line 302, ../sass/components/_tikke-rtl.scss */
+#top-site .site-name-next {
+  float: left;
+  text-align: right;
+}
+/* line 306, ../sass/components/_tikke-rtl.scss */
+#top-site .site-name-prev {
+  float: right;
+  text-align: left;
+}
+/* line 310, ../sass/components/_tikke-rtl.scss */
+#top-site img {
+  padding-top: 0 !important;
+}
+/* line 313, ../sass/components/_tikke-rtl.scss */
+#top-site .site-name {
+  padding: 13px 10px !important;
+}
+@media (max-width: 480px) {
+  /* line 313, ../sass/components/_tikke-rtl.scss */
+  #top-site .site-name {
+    padding: 16px 10px !important;
+  }
+}
+
+/* line 321, ../sass/components/_tikke-rtl.scss */
+#block-views-logos-block .views-row {
+  float: right;
+}
+
+/*********  Commerce  ***********/
+/* line 328, ../sass/components/_tikke-rtl.scss */
+.page-node-12 .main-area .image, .page-node-78 .main-area .image {
+  float: right;
+}
+/* line 331, ../sass/components/_tikke-rtl.scss */
+.page-node-12 .main-area .text, .page-node-78 .main-area .text {
+  float: right;
+}
+
+/* SMACSS theme rules */
+/* @import "theme-A-rtl"; */
+/* @import "theme-B-rtl"; */

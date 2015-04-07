@@ -1,0 +1,146 @@
+// Default styles for the demo buttons
+@mixin button {
+  margin: .4em;
+  padding: 1em;
+  cursor: pointer;
+  background: $primaryColour;
+  text-decoration: none;
+  color: $secondaryColour;
+  // Prevent highlight colour when element is tapped
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+// prefix declarations
+@mixin prefixed($property, $value) {
+  @if $webkit == true {
+    -webkit-#{$property}: #{$value};
+  }
+
+  @if $moz == true {
+    -moz-#{$property}: #{$value};
+  }
+
+  @if $ms == true {
+    -ms-#{$property}: #{$value};
+  }
+
+  @if $o == true {
+    -o-#{$property}: #{$value};
+  }
+
+  #{$property}: #{$value};
+}
+
+// prefix keyframes
+@mixin keyframes($name) {
+  @if $webkit == true {
+    @-webkit-keyframes #{$name} {
+      @content;
+    }
+  }
+
+  @if $moz == true {
+    @-moz-keyframes #{$name} {
+      @content;
+    }
+  }
+
+  @if $ms == true {
+    @-ms-keyframes #{$name} {
+      @content;
+    }
+  }
+
+  @if $o == true {
+    @-o-keyframes #{$name} {
+      @content;
+    }
+  }
+
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+// As is often the case, some devices/browsers need additional code to get CSS to work
+// in the most desired way. These mixins are used to quickly drop in hacks for each element
+// Find out more here: https://github.com/IanLunn/Hover/wiki/Hacks-Explained
+
+@mixin hardwareAccel() {
+	//Improve performance on mobile/tablet devices
+	@include prefixed(transform, translateZ(0));
+}
+
+@mixin improveAntiAlias() {
+	//Improve aliasing on mobile/tablet devices
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+
+@mixin hacks() {
+  @include hardwareAccel();
+  @include improveAntiAlias();
+}
+
+/* Hover Shadow */
+$defaultDuration: 1s;
+$primaryColour: #000;
+$secondaryColour: #666;
+$shadowColour: rgba(0, 0, 0, .6);
+
+//Speech bubbles options
+$tipWidth: 10px;  //the width of the speech bubble tip
+$tipHeight: 10px; //the height of the speech bubble tip
+$tipColour: $primaryColour;
+
+// Curl dimensions
+$curlWidth: 25px;
+$curlHeight: 25px;
+
+// Curl colours
+$revealAreaColour: white;			// reveal area behind the curl
+$curlLineColour: #aaa;			   // crease line
+$curlTransitionColour: #ccc;	 // colour transitioning from crease line to final colour
+$curlLastColour: white;				// final colour of the back of the curl
+
+// Browser Prefixes
+$webkit: true;
+$moz: false;
+$ms: false;
+$o: false;
+
+
+
+/* Wobble Vertical */
+/* Outline Outward */
+@mixin outline-outward {
+	display: inline-block;
+	$outerBorderWidth: 1px;
+	$innerBorderWidth: 4px;
+
+	position: relative;
+
+	@include hacks();
+
+	&:before {
+		content: '';
+		position: absolute;
+		border: $primaryColour solid $outerBorderWidth;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		@include prefixed(transition-duration, .9s);
+		@include prefixed(transition-property, "top, right, bottom, left");
+	}
+
+	&:hover:before,
+	&:focus:before,
+	&:active:before {
+		top: -($outerBorderWidth + $innerBorderWidth);
+		right: -($outerBorderWidth + $innerBorderWidth);
+		bottom: -($outerBorderWidth + $innerBorderWidth);
+		left: -($outerBorderWidth + $innerBorderWidth);
+	}
+}
+
+

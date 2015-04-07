@@ -1,0 +1,82 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall code for Yam.
+ */
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Delete variables.
+ */
+function yam_uninstall() {
+
+  variable_del('yam_locale_domains');
+  variable_del('yam_feature_package');
+  variable_del('yam_file_autoupload');
+  variable_del('yam_status_report');
+  variable_del('yam_module_paths');
+  variable_del('yam_module_settings_pages');
+}
+
+/**
+ * Implements hook_requirements().
+ *
+ * Shows the information in the Status Report page.
+ */
+function yam_requirements($phase) {
+
+  $requirements = array();
+
+  if ($phase == 'runtime' && variable_get('yam_status_report', TRUE)) {
+
+    $t = get_t();
+
+    // Uptime.
+    $uptime = trim(@shell_exec('uptime'));
+    if (strlen($uptime) > 0) {
+      $requirements['uptime'] = array(
+        'title'    => $t('Server uptime'),
+        'value'    => $uptime,
+        'severity' => REQUIREMENT_OK,
+        'weight'   => -7,
+      );
+    }
+
+    // IP. See http://stackoverflow.com/a/5350310/1391963 and ip_address().
+    $ip = ip_address();
+    $proxy = $t('No proxy detected');
+    if ($ip != $_SERVER["REMOTE_ADDR"]) {
+      $proxy = $t('Proxy: !proxy', array(
+        '!proxy' => $_SERVER["REMOTE_ADDR"],
+      ));
+    }
+    $requirements['server_ip'] = array(
+      'title'    => $t('Server IP'),
+      'value'    => "$ip ($proxy)",
+      'severity' => REQUIREMENT_OK,
+      'weight'   => -7,
+    );
+
+    // OS.
+    $uname = @php_uname();
+    if (strlen($uname) > 0) {
+      $requirements['server_name'] = array(
+        'title'    => $t('Server OS'),
+        'value'    => $uname,
+        'severity' => REQUIREMENT_OK,
+        'weight'   => -7,
+      );
+    }
+
+    // PHP Error reporting.
+    $requirements['reporting'] = array(
+      'title'    => $t('PHP error reporting'),
+      'value'    => error_reporting(),
+      'severity' => REQUIREMENT_OK,
+    );
+  }
+
+  return $requirements;
+}

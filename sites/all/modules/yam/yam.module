@@ -1,0 +1,238 @@
+<?php
+
+/**
+ * @file
+ * Yam module file.
+ */
+
+/**
+ * Implements hook_menu().
+ *
+ * 1) Main module settings.
+ * 2) Create a menu for module setting pages, and make admin pages
+ *    available in admin/modules/settings/{module_name}
+ *
+ */
+function yam_menu() {
+
+  // 1) Main module settings.
+  $items['admin/config/user-interface/yam'] = array(
+    'title'            => 'Yam settings',
+    'description'      => 'Enable and disable Yam features.',
+    'type'             => MENU_NORMAL_ITEM,
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('yam_admin_settings'),
+    'access arguments' => array('administer site configuration'),
+    'file'             => 'yam.admin.inc',
+  );
+
+  // 2) Make admin pages for modules available in admin/modules/settings/{module_name}
+  if (variable_get('yam_module_settings_pages', TRUE)) {
+    $items['admin/modules/settings'] = array(
+      'title' => 'Settings',
+      'description' => 'Settings by module.',
+      'access arguments' => array('administer site configuration'),
+    );
+
+    static $files = array();
+
+    if (!$files) {
+
+      // Get current list of modules.
+      $files = system_rebuild_module_data();
+      // Remove hidden modules from display list.
+      foreach ($files as $filename => $file) {
+        if (!empty($file->info['hidden'])) {
+          unset($files[$filename]);
+        }
+      }
+      // Iterate through each of the modules.
+      foreach ($files as $module) {
+        if ($module->status && isset($module->info['configure'])) {
+          $configure_link = menu_get_item($module->info['configure']);
+          $items['admin/modules/settings/' . $module->name] = array(
+            'title'            => $module->info['name'],
+            'description'      => $module->info['name'] . ' settings.',
+            'type'             => MENU_NORMAL_ITEM,
+            'page callback'    => 'drupal_goto',
+            'page arguments'   => array($configure_link['href']),
+            'access callback'  => array('drupal_valid_path'),
+            'access arguments' => array($configure_link['href']),
+          );
+        }
+      }
+    }
+  }
+
+  return $items;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Languages list: Include the domains and override theme function.
+ */
+function yam_form_locale_languages_overview_form_alter(&$form, &$form_state, $form_id) {
+
+  if (variable_get('yam_locale_domains', FALSE)) {
+    $languages = language_list();
+    foreach ($languages as $key => $object) {
+      $form['domain'][$key]['#markup'] = $object->domain;
+    }
+    $form['#theme'] = 'yam_languages_overview_form_domain';
+  }
+}
+
+/**
+ * Implements hook_theme().
+ *
+ * Languages list: Register theme function in order to display the domain in the language table.
+ */
+function yam_theme() {
+  return array(
+    'yam_languages_overview_form_domain' => array(
+      'render element' => 'form',
+    ),
+  );
+}
+
+/**
+ * Languages list: Returns HTML for the language overview form, including domains for each languages.
+ *
+ * Ripoff of locale_languages_overview_form().
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - form: A render element representing the form.
+ *
+ * @ingroup themeable
+ * @return string
+ *   Html output.
+ */
+function theme_yam_languages_overview_form_domain($variables) {
+  $form = $variables['form'];
+  $default = language_default();
+  foreach ($form['name'] as $key => $element) {
+    // Do not take form control structures.
+    if (is_array($element) && element_child($key)) {
+      // Disable checkbox for the default language because it cant be disabled.
+      if ($key == $default->language) {
+        $form['enabled'][$key]['#attributes']['disabled'] = 'disabled';
+      }
+
+      // Add invisible labels for the checkboxes and radio buttons in the table
+      // for accessibility. These changes are only required and valid when the
+      // form is themed as a table, so it would be wrong to perform them in the
+      // form constructor.
+      $title = drupal_render($form['name'][$key]);
+      $form['enabled'][$key]['#title'] = t('Enable !title', array('!title' => $title));
+      $form['enabled'][$key]['#title_display'] = 'invisible';
+      $form['site_default'][$key]['#title'] = t('Set !title as default', array('!title' => $title));
+      $form['site_default'][$key]['#title_display'] = 'invisible';
+      $rows[] = array(
+        'data' => array(
+          '<strong>' . $title . '</strong>',
+          drupal_render($form['native'][$key]),
+          check_plain(drupal_render($form['domain'][$key])),
+          check_plain($key),
+          drupal_render($form['direction'][$key]),
+          array('data' => drupal_render($form['enabled'][$key]), 'align' => 'center'),
+          drupal_render($form['site_default'][$key]),
+          drupal_render($form['weight'][$key]),
+          l(t('edit'), 'admin/config/regional/language/edit/' . $key) . (($key != 'en' && $key != $default->language) ? ' ' . l(t('delete'), 'admin/config/regional/language/delete/' . $key) : '')
+        ),
+        'class' => array('draggable'),
+      );
+    }
+  }
+  $header = array(array('data' => t('English name')), array('data' => t('Native name')), array('data' => t('Domain')), array('data' => t('Code')), array('data' => t('Direction')), array('data' => t('Enabled')), array('data' => t('Default')), array('data' => t('Weight')), array('data' => t('Operations')));
+  $output = theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('id' => 'language-order')));
+  $output .= drupal_render_children($form);
+
+  drupal_add_tabledrag('language-order', 'order', 'sibling', 'language-order-weight');
+
+  return $output;
+}
+
+/**
+ * Implements hook_page_build().
+ *
+ * 1) Select default tab on Features page.
+ * 2) In AJAX file uploads, automatically press the 'Upload' form button.
+ */
+function yam_page_build() {
+
+  // Select default tab on Features page.
+  if (path_is_admin(current_path()) && module_exists('features')) {
+    $package = check_plain(variable_get('yam_feature_package', 'none'));
+    if ($package && $package != 'none') {
+      drupal_add_js("(function ($) {
+        Drupal.behaviors.yamSelectFeaturePackage = {
+          attach: function (context, settings) {
+            $('#features-admin-form .vertical-tab-button a strong').each(function() {
+              if ($(this).text() == '" . $package . "') {
+                $(this).parent().trigger('click');
+              }
+            });
+          }
+        };
+      })(jQuery);", 'inline');
+    }
+  }
+
+  // In AJAX file uploads, automatically press the 'Upload' form button.
+  if (module_exists('file') && variable_get('yam_file_autoupload', TRUE)) {
+    drupal_add_js(drupal_get_path('module', 'yam') . '/js/yam_autoupload.js');
+  }
+}
+
+/**
+ * Returns array of Features packages, and 'none'.
+ */
+function yam_get_feature_packages() {
+
+  $packages = array('none' => 'None');
+
+  if (module_exists('features')) {
+
+    // Fetch all features and get their packages.
+    foreach (features_get_features(NULL, TRUE) as $value) {
+      if (!isset($packages[$value->info['package']])) {
+        $packages[$value->info['package']] = $value->info['package'];
+      }
+    }
+  }
+
+  return $packages;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * In the module list page, append the module's path after each module description.
+ */
+function yam_form_system_modules_alter(&$form, $form_state, $form_id) {
+
+  // Do not alter the form in a confirmation page or when option is disabled.
+  if (isset($form['confirm']) || !variable_get('yam_module_paths', TRUE)) {
+    return;
+  }
+
+  $groups = element_children($form['modules']);
+  foreach ($groups as $group_name) {
+    $modules_group = element_children($form['modules'][$group_name]);
+    foreach ($modules_group as $module_name) {
+      $path = drupal_get_path('module', $module_name);
+      if (empty($form['modules'][$group_name][$module_name]['description']['#markup'])) {
+        $form['modules'][$group_name][$module_name]['description']['#markup'] = t('Path: !path', array(
+          '!path' => $path,
+        ));
+      }
+      else {
+        $form['modules'][$group_name][$module_name]['description']['#markup'] .= '<br/>' . t('Path: !path', array(
+          '!path' => $path,
+        ));
+      }
+    }
+  }
+}
